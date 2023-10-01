@@ -53,33 +53,33 @@ class Branding
     protected function apply(): void
     {
         /* Login screen */
-        \App\add_action('login_head', function () {
+        add_action('login_head', function () {
             echo $this->customLogoStyles();
         });
-        \App\add_filter('login_message', [$this, 'loginMessage']);
-        \App\add_filter('login_headerurl', function () {
+        add_filter('login_message', [$this, 'loginMessage']);
+        add_filter('login_headerurl', function () {
             return static::config('link');
         });
 
         /* Admin dashboard */
-        \App\add_filter('admin_footer_text', function () {
+        add_filter('admin_footer_text', function () {
             echo $this->adminFooterText();
         });
-        \App\add_filter('admin_head', function () {
+        add_filter('admin_head', function () {
             echo $this->adminStyles();
         });
 
         /* Site front */
-        \App\add_filter('wp_head', function () {
+        add_filter('wp_head', function () {
             echo $this->siteHeads();
         });
-        if (\App\get_option('branding_reading_setting_field')) {
-            \App\add_filter('wp_footer', function () {
+        if (get_option('branding_reading_setting_field')) {
+            add_filter('wp_footer', function () {
                 echo $this->maintainerBadge();
             });
         }
 
-        \App\add_action('admin_init', [$this, 'frontendSettings']);
+        add_action('admin_init', [$this, 'frontendSettings']);
     }
 
     public function requestIpAddr(): ?string
@@ -150,7 +150,7 @@ class Branding
 
     public function maintainerBadge(): string
     {
-        $html = '
+        return '
         <a target="_blank"
            href="'.static::config('link').'"
            style="display: block; position: fixed; bottom: 36px; right: -44px; z-index: 99999; background-color: '.static::config('badge_bg').'; padding: 5px 30px; transform: rotate(-45deg);"
@@ -158,15 +158,13 @@ class Branding
             <img src="'.static::config('logo_full_svg_url').'"  width="120" height="12">
         </a>
         ';
-
-        return $html;
     }
 
     public function frontendSettings(): void
     {
-        \App\register_setting('reading', 'branding_reading_setting_field');
+        register_setting('reading', 'branding_reading_setting_field');
 
-        \App\add_settings_section(
+        add_settings_section(
             'frontend_settings_section',
             _('Maintainer branding'),
             null,
@@ -174,7 +172,7 @@ class Branding
             []
         );
 
-        \App\add_settings_field(
+        add_settings_field(
             'branding_reading_setting_field',
             'Display maintainer badge',
             [$this, 'frontendSettingEnableBadge'],
@@ -185,6 +183,6 @@ class Branding
 
     public function frontendSettingEnableBadge(): void
     {
-        echo '<input type="checkbox" value="1" name="branding_reading_setting_field" ' . \App\checked(get_option('branding_reading_setting_field'), true, false) . '" />';
+        echo '<input type="checkbox" value="1" name="branding_reading_setting_field" ' . checked(get_option('branding_reading_setting_field'), true, false) . '" />';
     }
 }
