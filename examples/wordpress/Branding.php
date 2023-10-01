@@ -12,7 +12,6 @@ class Branding
         'logo_full_url' => 'https://raw.githubusercontent.com/dev-think-one/branding/main/assets/studio/logo-full.png',
         'logo_full_svg_url' => 'https://raw.githubusercontent.com/dev-think-one/branding/main/assets/studio/logo-full.svg',
         'screenshot_url' => 'https://raw.githubusercontent.com/dev-think-one/branding/main/assets/studio/screenshot.png',
-        'badge_bg' => 'white',
     ];
 
     private function __construct()
@@ -153,7 +152,7 @@ class Branding
         return '
         <a target="_blank"
            href="'.static::config('link').'"
-           style="display: block; position: fixed; bottom: 36px; right: -44px; z-index: 99999; background-color: '.static::config('badge_bg').'; padding: 5px 30px; transform: rotate(-45deg);"
+           style="display: block; position: fixed; bottom: 36px; right: -44px; z-index: 99999; background-color: '.static::config('badge_bg', 'white').'; padding: 5px 30px; transform: rotate(-45deg);"
         >
             <img src="'.static::config('logo_full_svg_url').'"  width="120" height="12">
         </a>
