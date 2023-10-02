@@ -140,8 +140,6 @@ class Branding
         $comment = sprintf(
             __('Site powered by Think Studio  %s'),
             static::config('link'),
-            'width: 119px; transform: translateY(2px)',
-            static::config('logo_full_url')
         );
 
         return '<!-- ' . $comment . ' -->';
